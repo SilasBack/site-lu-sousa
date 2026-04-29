@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lu Sousa - Salão de Beleza</title>
+  <meta name="description" content="Lu Sousa Salão de Beleza — Alisamento, Escova, Corte, Depilação, Design de Sobrancelha, Limpeza de Pele e muito mais. Agende pelo WhatsApp!" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'blush':    '#F0D5C8',
+            'blush-dark': '#E8C9BC',
+            'blush-deep': '#D9B5A5',
+            'mocha':    '#7A5547',
+            'mocha-dark': '#5C4033',
+            'mocha-light': '#A07060',
+            'cream':    '#FDF8F5',
+            'warm-white': '#FAF4F0',
+          },
+          fontFamily: {
+            'playfair': ['"Playfair Display"', 'Georgia', 'serif'],
+            'lato':     ['Lato', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ===== GLOBAL ===== */
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background-color: #FDF8F5; color: #5C4033; }
+
+    /* ===== HERO ===== */
+    .hero-bg {
+      background-color: #F0D5C8;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(255,255,255,0.35) 0%, transparent 65%),
+                  radial-gradient(ellipse at 20% 80%, rgba(122,85,71,0.10) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* ===== ORGANIC BLOBS (decorative) ===== */
+    .blob {
+      position: absolute;
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+      border: 1.5px solid rgba(92,64,51,0.25);
+      pointer-events: none;
+    }
+
+    /* ===== LEAF SVG DECORATION ===== */
+    .leaf-decoration {
+      position: absolute;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    /* ===== NAVBAR ===== */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1.5px;
+      background: #7A5547;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ===== SERVICE CARDS ===== */
+    .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(122,85,71,0.15);
+    }
+
+    /* ===== WHATSAPP FLOAT ===== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 9999;
+      animation: pulse-wa 2.5s infinite;
+    }
+    @keyframes pulse-wa {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+      50%       { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+    }
+
+    /* ===== SECTION DIVIDER ===== */
+    .section-divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, #7A5547, #D9B5A5);
+      margin: 0 auto 1.5rem;
+      border-radius: 2px;
+    }
+
+    /* ===== MOBILE MENU ===== */
+    #mobile-menu { transition: max-height 0.4s ease, opacity 0.4s ease; }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-md shadow-sm border-b border-blush-dark/30">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#inicio" class="flex items-center gap-3 group">
+        <img src="assets/logo_icon.png" alt="Flor de Lótus Lu Sousa" class="h-10 w-10 object-contain" onerror="this.style.display='none'" />
+        <div>
+          <p class="font-playfair font-bold text-mocha-dark text-lg leading-tight tracking-wide">Lu Sousa</p>
+          <p class="font-lato text-mocha-light text-xs tracking-widest uppercase">Salão de Beleza</p>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <ul class="hidden md:flex items-center gap-8 font-lato text-sm text-mocha tracking-wide">
+        <li><a href="#inicio"   class="nav-link hover:text-mocha-dark">Início</a></li>
+        <li><a href="#servicos" class="nav-link hover:text-mocha-dark">Serviços</a></li>
+        <li><a href="#sobre"    class="nav-link hover:text-mocha-dark">Sobre</a></li>
+        <li><a href="#localizacao" class="nav-link hover:text-mocha-dark">Localização</a></li>
+        <li><a href="#contato"  class="nav-link hover:text-mocha-dark">Contato</a></li>
+      </ul>
+
+      <!-- CTA Navbar -->
+      <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20no%20salão%20Lu%20Sousa."
+         target="_blank" rel="noopener"
+         class="hidden md:inline-flex items-center gap-2 bg-mocha-dark text-white text-sm font-lato font-bold px-5 py-2.5 rounded-full hover:bg-mocha transition-colors duration-300 shadow-md">
+        <i class="fa-brands fa-whatsapp text-base"></i>
+        Agendar
+      </a>
+
+      <!-- Hamburger -->
+      <button id="menu-toggle" class="md:hidden text-mocha-dark focus:outline-none" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 opacity-0 bg-cream border-t border-blush-dark/30">
+      <ul class="flex flex-col gap-0 font-lato text-mocha py-2">
+        <li><a href="#inicio"      class="block px-6 py-3 hover:bg-blush transition-colors" onclick="closeMenu()">Início</a></li>
+        <li><a href="#servicos"    class="block px-6 py-3 hover:bg-blush transition-colors" onclick="closeMenu()">Serviços</a></li>
+        <li><a href="#sobre"       class="block px-6 py-3 hover:bg-blush transition-colors" onclick="closeMenu()">Sobre</a></li>
+        <li><a href="#localizacao" class="block px-6 py-3 hover:bg-blush transition-colors" onclick="closeMenu()">Localização</a></li>
+        <li><a href="#contato"     class="block px-6 py-3 hover:bg-blush transition-colors" onclick="closeMenu()">Contato</a></li>
+        <li class="px-6 py-3">
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20no%20salão%20Lu%20Sousa."
+             target="_blank" rel="noopener"
+             class="flex items-center justify-center gap-2 bg-mocha-dark text-white text-sm font-bold px-5 py-3 rounded-full hover:bg-mocha transition-colors">
+            <i class="fa-brands fa-whatsapp"></i> Agendar no WhatsApp
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ===================== HERO ===================== -->
+  <section id="inicio" class="hero-bg min-h-screen flex items-center pt-20">
+
+    <!-- Decorative blobs -->
+    <div class="blob w-72 h-72 top-16 right-8 opacity-30" style="border-color: rgba(92,64,51,0.3);"></div>
+    <div class="blob w-48 h-48 bottom-20 left-4 opacity-20" style="border-color: rgba(92,64,51,0.25); border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%;"></div>
+
+    <!-- Leaf SVG top-left -->
+    <svg class="leaf-decoration w-56 h-56 top-10 left-0" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20,180 Q60,120 100,80 Q140,40 180,20" stroke="#7A5547" stroke-width="1.5" fill="none"/>
+      <path d="M100,80 Q80,60 60,90 Q40,120 60,140 Q80,160 100,80" stroke="#7A5547" stroke-width="1.2" fill="none"/>
+      <path d="M100,80 Q120,55 145,75 Q165,95 150,115 Q130,135 100,80" stroke="#7A5547" stroke-width="1.2" fill="none"/>
+    </svg>
+
+    <!-- Leaf SVG bottom-right -->
+    <svg class="leaf-decoration w-48 h-48 bottom-10 right-0" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M180,20 Q140,80 100,120 Q60,160 20,180" stroke="#7A5547" stroke-width="1.5" fill="none"/>
+      <path d="M100,120 Q120,100 140,130 Q155,155 130,165 Q110,175 100,120" stroke="#7A5547" stroke-width="1.2" fill="none"/>
+    </svg>
+
+    <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center relative z-10">
+
+      <!-- Text Content -->
+      <div class="text-center md:text-left">
+        <p class="font-lato text-mocha-light text-sm tracking-[0.3em] uppercase mb-4">Bem-vinda ao</p>
+        <h1 class="font-playfair font-bold text-mocha-dark text-5xl md:text-6xl lg:text-7xl leading-tight mb-3">
+          Lu Sousa
+        </h1>
+        <p class="font-lato text-mocha tracking-[0.25em] uppercase text-lg md:text-xl mb-6">Salão de Beleza</p>
+        <div class="w-16 h-0.5 bg-mocha-light mx-auto md:mx-0 mb-6"></div>
+        <p class="font-lato text-mocha/80 text-base md:text-lg leading-relaxed mb-10 max-w-md mx-auto md:mx-0">
+          Realce sua beleza com cuidado, carinho e técnica especializada. Cada atendimento é pensado para você se sentir única e especial.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20no%20salão%20Lu%20Sousa."
+             target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center gap-3 bg-mocha-dark text-white font-lato font-bold text-base px-8 py-4 rounded-full shadow-lg hover:bg-mocha hover:shadow-xl transition-all duration-300 group">
+            <i class="fa-brands fa-whatsapp text-xl group-hover:scale-110 transition-transform"></i>
+            Agendar no WhatsApp
+          </a>
+          <a href="#servicos"
+             class="inline-flex items-center justify-center gap-2 border-2 border-mocha text-mocha font-lato font-bold text-base px-8 py-4 rounded-full hover:bg-mocha hover:text-white transition-all duration-300">
+            Ver Serviços
+            <i class="fa-solid fa-arrow-down text-sm"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Image / Logo Display -->
+      <div class="flex justify-center items-center">
+        <div class="relative">
+          <!-- Outer ring -->
+          <div class="absolute inset-0 rounded-full border-2 border-mocha/20 scale-110"></div>
+          <!-- Logo card -->
+          <div class="relative bg-white/60 backdrop-blur-sm rounded-3xl shadow-2xl p-10 flex flex-col items-center gap-4 border border-white/80">
+            <!-- Lotus icon SVG -->
+            <svg viewBox="0 0 80 70" class="w-24 h-24 text-mocha-dark" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M40 60 C40 60 15 45 15 28 C15 18 22 12 30 14 C33 15 36 17 38 20 C39 21 39 22 40 22 C41 22 41 21 42 20 C44 17 47 15 50 14 C58 12 65 18 65 28 C65 45 40 60 40 60Z" stroke="#7A5547" stroke-width="1.8" fill="none"/>
+              <path d="M40 60 C40 60 22 50 18 36 C16 28 19 20 25 18 C28 17 32 18 35 21 C37 23 38 25 40 25 C42 25 43 23 45 21 C48 18 52 17 55 18 C61 20 64 28 62 36 C58 50 40 60 40 60Z" stroke="#7A5547" stroke-width="1.5" fill="none"/>
+              <path d="M40 60 C40 60 28 52 26 42 C24 35 27 28 32 26 C35 25 38 27 40 30 C42 27 45 25 48 26 C53 28 56 35 54 42 C52 52 40 60 40 60Z" stroke="#7A5547" stroke-width="1.3" fill="none"/>
+              <path d="M40 60 C40 60 34 54 33 47 C32 42 35 37 40 37 C45 37 48 42 47 47 C46 54 40 60 40 60Z" stroke="#7A5547" stroke-width="1.2" fill="none"/>
+              <!-- Stem -->
+              <path d="M40 60 L40 68" stroke="#7A5547" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Leaves -->
+              <path d="M40 65 C36 62 30 63 28 67" stroke="#7A5547" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              <path d="M40 65 C44 62 50 63 52 67" stroke="#7A5547" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div class="text-center">
+              <p class="font-playfair font-bold text-mocha-dark text-3xl tracking-wider">LU SOUSA</p>
+              <p class="font-lato text-mocha text-xs tracking-[0.35em] uppercase mt-1">Salão de Beleza</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-mocha/50 animate-bounce">
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </div>
+  </section>
+
+
+  <!-- ===================== SERVIÇOS ===================== -->
+  <section id="servicos" class="py-24 bg-warm-white">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <p class="font-lato text-mocha-light text-sm tracking-[0.3em] uppercase mb-3">O que oferecemos</p>
+        <h2 class="font-playfair font-bold text-mocha-dark text-4xl md:text-5xl mb-4">Nossos Serviços</h2>
+        <div class="section-divider"></div>
+        <p class="font-lato text-mocha/70 text-base max-w-xl mx-auto">
+          Cada serviço é realizado com produtos de qualidade e técnicas atualizadas, para que você saia ainda mais linda e confiante.
+        </p>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Card 1: Alisamento Capilar -->
+        <div class="service-card bg-white rounded-2xl p-7 shadow-sm border border-blush/60 flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-wand-magic-sparkles text-mocha-dark text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-playfair font-semibold text-mocha-dark text-xl mb-2">Alisamento Capilar</h3>
+            <p class="font-lato text-mocha/70 text-sm leading-relaxed">Cabelos lisos, sedosos e com brilho intenso. Técnicas modernas para resultados duradouros.</p>
+          </div>
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20Alisamento%20Capilar."
+             target="_blank" rel="noopener"
+             class="mt-auto text-mocha-dark text-sm font-lato font-bold flex items-center gap-1.5 hover:gap-3 transition-all duration-300">
+            Agendar <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 2: Escova Modelada -->
+        <div class="service-card bg-white rounded-2xl p-7 shadow-sm border border-blush/60 flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-wind text-mocha-dark text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-playfair font-semibold text-mocha-dark text-xl mb-2">Escova Modelada</h3>
+            <p class="font-lato text-mocha/70 text-sm leading-relaxed">Volume, movimento e brilho com a escova perfeita para o seu tipo de cabelo.</p>
+          </div>
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20Escova%20Modelada."
+             target="_blank" rel="noopener"
+             class="mt-auto text-mocha-dark text-sm font-lato font-bold flex items-center gap-1.5 hover:gap-3 transition-all duration-300">
+            Agendar <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 3: Corte Feminino e Infantil -->
+        <div class="service-card bg-white rounded-2xl p-7 shadow-sm border border-blush/60 flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-scissors text-mocha-dark text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-playfair font-semibold text-mocha-dark text-xl mb-2">Corte Feminino e Infantil</h3>
+            <p class="font-lato text-mocha/70 text-sm leading-relaxed">Cortes modernos e clássicos para mulheres e crianças, com carinho e precisão.</p>
+          </div>
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20Corte%20Feminino%20ou%20Infantil."
+             target="_blank" rel="noopener"
+             class="mt-auto text-mocha-dark text-sm font-lato font-bold flex items-center gap-1.5 hover:gap-3 transition-all duration-300">
+            Agendar <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 4: Depilação -->
+        <div class="service-card bg-white rounded-2xl p-7 shadow-sm border border-blush/60 flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-spa text-mocha-dark text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-playfair font-semibold text-mocha-dark text-xl mb-2">Depilação</h3>
+            <p class="font-lato text-mocha/70 text-sm leading-relaxed">Pele lisa e macia com técnicas eficientes e produtos de alta qualidade.</p>
+          </div>
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20Depilação."
+             target="_blank" rel="noopener"
+             class="mt-auto text-mocha-dark text-sm font-lato font-bold flex items-center gap-1.5 hover:gap-3 transition-all duration-300">
+            Agendar <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 5: Design de Sobrancelha -->
+        <div class="service-card bg-white rounded-2xl p-7 shadow-sm border border-blush/60 flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-eye text-mocha-dark text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-playfair font-semibold text-mocha-dark text-xl mb-2">Design de Sobrancelha</h3>
+            <p class="font-lato text-mocha/70 text-sm leading-relaxed">Design personalizado e henna para sobrancelhas perfeitas que valorizam o seu olhar.</p>
+          </div>
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20Design%20de%20Sobrancelha."
+             target="_blank" rel="noopener"
+             class="mt-auto text-mocha-dark text-sm font-lato font-bold flex items-center gap-1.5 hover:gap-3 transition-all duration-300">
+            Agendar <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 6: Limpeza de Pele -->
+        <div class="service-card bg-white rounded-2xl p-7 shadow-sm border border-blush/60 flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-droplet text-mocha-dark text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-playfair font-semibold text-mocha-dark text-xl mb-2">Limpeza de Pele</h3>
+            <p class="font-lato text-mocha/70 text-sm leading-relaxed">Pele renovada, hidratada e radiante com tratamento facial completo e personalizado.</p>
+          </div>
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20Limpeza%20de%20Pele."
+             target="_blank" rel="noopener"
+             class="mt-auto text-mocha-dark text-sm font-lato font-bold flex items-center gap-1.5 hover:gap-3 transition-all duration-300">
+            Agendar <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 7: Botox Capilar -->
+        <div class="service-card bg-white rounded-2xl p-7 shadow-sm border border-blush/60 flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-star text-mocha-dark text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-playfair font-semibold text-mocha-dark text-xl mb-2">Botox Capilar</h3>
+            <p class="font-lato text-mocha/70 text-sm leading-relaxed">Reconstrução profunda dos fios, redução do frizz e brilho intenso de longa duração.</p>
+          </div>
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20Botox%20Capilar."
+             target="_blank" rel="noopener"
+             class="mt-auto text-mocha-dark text-sm font-lato font-bold flex items-center gap-1.5 hover:gap-3 transition-all duration-300">
+            Agendar <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 8: Reconstrução de Cílios -->
+        <div class="service-card bg-white rounded-2xl p-7 shadow-sm border border-blush/60 flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-feather text-mocha-dark text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-playfair font-semibold text-mocha-dark text-xl mb-2">Reconstrução de Cílios</h3>
+            <p class="font-lato text-mocha/70 text-sm leading-relaxed">Cílios mais fortes, nutridos e volumosos com tratamento especializado de reconstrução.</p>
+          </div>
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20Reconstrução%20de%20Cílios."
+             target="_blank" rel="noopener"
+             class="mt-auto text-mocha-dark text-sm font-lato font-bold flex items-center gap-1.5 hover:gap-3 transition-all duration-300">
+            Agendar <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 9: Aplicação de Coloração -->
+        <div class="service-card bg-white rounded-2xl p-7 shadow-sm border border-blush/60 flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-palette text-mocha-dark text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-playfair font-semibold text-mocha-dark text-xl mb-2">Aplicação de Coloração</h3>
+            <p class="font-lato text-mocha/70 text-sm leading-relaxed">Coloração vibrante e duradoura com técnicas de mechas, luzes, balayage e muito mais.</p>
+          </div>
+          <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20Aplicação%20de%20Coloração."
+             target="_blank" rel="noopener"
+             class="mt-auto text-mocha-dark text-sm font-lato font-bold flex items-center gap-1.5 hover:gap-3 transition-all duration-300">
+            Agendar <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- CTA Serviços -->
+      <div class="text-center mt-14">
+        <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20do%20salão%20Lu%20Sousa."
+           target="_blank" rel="noopener"
+           class="inline-flex items-center gap-3 bg-mocha-dark text-white font-lato font-bold text-base px-10 py-4 rounded-full shadow-lg hover:bg-mocha hover:shadow-xl transition-all duration-300">
+          <i class="fa-brands fa-whatsapp text-xl"></i>
+          Agendar pelo WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== SOBRE ===================== -->
+  <section id="sobre" class="py-24 bg-blush/30">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-14 items-center">
+
+        <!-- Image / Decorative -->
+        <div class="relative flex justify-center">
+          <div class="relative w-72 h-72 md:w-80 md:h-80">
+            <!-- Background circle -->
+            <div class="absolute inset-0 rounded-full bg-blush-dark/40"></div>
+            <!-- Inner content -->
+            <div class="absolute inset-6 rounded-full bg-cream flex flex-col items-center justify-center shadow-xl border border-white/80 gap-3 p-6 text-center">
+              <!-- Lotus SVG -->
+              <svg viewBox="0 0 80 70" class="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M40 60 C40 60 15 45 15 28 C15 18 22 12 30 14 C33 15 36 17 38 20 C39 21 39 22 40 22 C41 22 41 21 42 20 C44 17 47 15 50 14 C58 12 65 18 65 28 C65 45 40 60 40 60Z" stroke="#7A5547" stroke-width="1.8" fill="none"/>
+                <path d="M40 60 C40 60 22 50 18 36 C16 28 19 20 25 18 C28 17 32 18 35 21 C37 23 38 25 40 25 C42 25 43 23 45 21 C48 18 52 17 55 18 C61 20 64 28 62 36 C58 50 40 60 40 60Z" stroke="#7A5547" stroke-width="1.5" fill="none"/>
+                <path d="M40 60 C40 60 28 52 26 42 C24 35 27 28 32 26 C35 25 38 27 40 30 C42 27 45 25 48 26 C53 28 56 35 54 42 C52 52 40 60 40 60Z" stroke="#7A5547" stroke-width="1.3" fill="none"/>
+                <path d="M40 65 L40 68 M40 65 C36 62 30 63 28 67 M40 65 C44 62 50 63 52 67" stroke="#7A5547" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              </svg>
+              <p class="font-playfair font-bold text-mocha-dark text-xl">Lu Sousa</p>
+              <p class="font-lato text-mocha/70 text-xs tracking-widest uppercase">Especialista em Beleza</p>
+            </div>
+            <!-- Decorative dots -->
+            <div class="absolute -top-3 -right-3 w-6 h-6 rounded-full bg-mocha-light/40"></div>
+            <div class="absolute -bottom-4 -left-4 w-8 h-8 rounded-full bg-blush-deep/50"></div>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div>
+          <p class="font-lato text-mocha-light text-sm tracking-[0.3em] uppercase mb-3">Conheça</p>
+          <h2 class="font-playfair font-bold text-mocha-dark text-4xl md:text-5xl mb-4">Sobre Nós</h2>
+          <div class="w-14 h-0.5 bg-mocha-light mb-6"></div>
+
+          <p class="font-lato text-mocha/80 text-base leading-relaxed mb-5">
+            O <strong class="text-mocha-dark">Lu Sousa Salão de Beleza</strong> nasceu do amor pela arte de transformar e cuidar. Acreditamos que cada cliente merece um atendimento único, personalizado e cheio de atenção — porque beleza é muito mais do que aparência, é bem-estar e autoestima.
+          </p>
+          <p class="font-lato text-mocha/80 text-base leading-relaxed mb-5">
+            Com técnicas atualizadas e produtos de alta qualidade, nossa missão é realçar a beleza natural de cada pessoa, criando um ambiente acolhedor onde você se sinta em casa desde o primeiro momento.
+          </p>
+          <p class="font-lato text-mocha/80 text-base leading-relaxed mb-8">
+            Seja para uma escova rápida ou um tratamento completo, estamos aqui para cuidar de você com todo o carinho e profissionalismo que você merece.
+          </p>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-4">
+            <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-blush/50">
+              <p class="font-playfair font-bold text-mocha-dark text-2xl">+500</p>
+              <p class="font-lato text-mocha/60 text-xs mt-1">Clientes Satisfeitas</p>
+            </div>
+            <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-blush/50">
+              <p class="font-playfair font-bold text-mocha-dark text-2xl">9+</p>
+              <p class="font-lato text-mocha/60 text-xs mt-1">Serviços Oferecidos</p>
+            </div>
+            <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-blush/50">
+              <p class="font-playfair font-bold text-mocha-dark text-2xl">100%</p>
+              <p class="font-lato text-mocha/60 text-xs mt-1">Dedicação</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== LOCALIZAÇÃO ===================== -->
+  <section id="localizacao" class="py-24 bg-warm-white">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <!-- Header -->
+      <div class="text-center mb-14">
+        <p class="font-lato text-mocha-light text-sm tracking-[0.3em] uppercase mb-3">Onde estamos</p>
+        <h2 class="font-playfair font-bold text-mocha-dark text-4xl md:text-5xl mb-4">Localização</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+
+        <!-- Map Embed -->
+        <div class="rounded-2xl overflow-hidden shadow-lg border border-blush/60 h-72 md:h-96">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.5!2d-38.5!3d-3.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwNDgnMDAuMCJTIDM4wrAzMCcwMC4wIlc!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localização Lu Sousa Salão de Beleza">
+          </iframe>
+        </div>
+
+        <!-- Info Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-blush/60 p-8 flex flex-col gap-6">
+
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-blush flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-location-dot text-mocha-dark text-lg"></i>
+            </div>
+            <div>
+              <p class="font-playfair font-semibold text-mocha-dark text-lg mb-1">Endereço</p>
+              <p class="font-lato text-mocha/70 text-sm leading-relaxed">Rua H, 42, Dendê<br/>Fortaleza — CE, CEP: 60714-715</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-blush flex items-center justify-center flex-shrink-0">
+              <i class="fa-brands fa-whatsapp text-mocha-dark text-lg"></i>
+            </div>
+            <div>
+              <p class="font-playfair font-semibold text-mocha-dark text-lg mb-1">WhatsApp</p>
+              <a href="https://wa.me/5585982048819" target="_blank" rel="noopener"
+                 class="font-lato text-mocha/70 text-sm hover:text-mocha-dark transition-colors">
+                (85) 9 8204-8819
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-blush flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-clock text-mocha-dark text-lg"></i>
+            </div>
+            <div>
+              <p class="font-playfair font-semibold text-mocha-dark text-lg mb-1">Horário de Atendimento</p>
+              <p class="font-lato text-mocha/70 text-sm leading-relaxed">
+                Segunda a Sexta: 9h às 19h<br/>
+                Sábado: 9h às 17h<br/>
+                Domingo: Fechado
+              </p>
+            </div>
+          </div>
+
+          <!-- Google Maps Button -->
+          <a href="https://www.google.com/maps/search/Rua+H,+42,+Dendê,+Fortaleza,+CE,+60714-715"
+             target="_blank" rel="noopener"
+             class="flex items-center justify-center gap-3 bg-mocha-dark text-white font-lato font-bold text-sm px-6 py-3.5 rounded-full hover:bg-mocha transition-colors duration-300 shadow-md mt-2">
+            <i class="fa-solid fa-map-location-dot text-base"></i>
+            Abrir no Google Maps
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== CONTATO / CTA ===================== -->
+  <section id="contato" class="py-24 bg-mocha-dark relative overflow-hidden">
+
+    <!-- Decorative background elements -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 left-0 w-64 h-64 rounded-full bg-white/5 -translate-x-1/2 -translate-y-1/2"></div>
+      <div class="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-white/5 translate-x-1/3 translate-y-1/3"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <p class="font-lato text-blush text-sm tracking-[0.3em] uppercase mb-3">Pronta para se cuidar?</p>
+      <h2 class="font-playfair font-bold text-white text-4xl md:text-5xl mb-4">Agende seu Horário</h2>
+      <div class="w-16 h-0.5 bg-blush mx-auto mb-6"></div>
+      <p class="font-lato text-white/70 text-base leading-relaxed mb-10 max-w-xl mx-auto">
+        Entre em contato pelo WhatsApp e agende o seu horário de forma rápida e prática. Estamos esperando por você!
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20no%20salão%20Lu%20Sousa."
+           target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white font-lato font-bold text-base px-10 py-4 rounded-full shadow-lg hover:bg-[#1ebe5a] hover:shadow-xl transition-all duration-300">
+          <i class="fa-brands fa-whatsapp text-xl"></i>
+          Agendar no WhatsApp
+        </a>
+        <a href="https://www.instagram.com/lusousa.ofc"
+           target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-3 border-2 border-white/40 text-white font-lato font-bold text-base px-10 py-4 rounded-full hover:bg-white/10 transition-all duration-300">
+          <i class="fa-brands fa-instagram text-xl"></i>
+          Ver no Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-mocha-dark border-t border-white/10 py-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+
+        <!-- Brand -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-blush/20 flex items-center justify-center">
+              <!-- Mini lotus -->
+              <svg viewBox="0 0 40 35" class="w-5 h-5" fill="none">
+                <path d="M20 30 C20 30 7 22 7 14 C7 9 11 6 15 7 C17 7.5 18 9 19 10.5 C19.5 11 19.5 11.5 20 11.5 C20.5 11.5 20.5 11 21 10.5 C22 9 23 7.5 25 7 C29 6 33 9 33 14 C33 22 20 30 20 30Z" stroke="#E8C9BC" stroke-width="1.2" fill="none"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-playfair font-bold text-white text-base">Lu Sousa</p>
+              <p class="font-lato text-white/50 text-xs tracking-widest uppercase">Salão de Beleza</p>
+            </div>
+          </div>
+          <p class="font-lato text-white/60 text-sm leading-relaxed">
+            Cuidando da sua beleza com amor, técnica e dedicação.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <p class="font-playfair font-semibold text-white text-base mb-4">Navegação</p>
+          <ul class="flex flex-col gap-2">
+            <li><a href="#inicio"      class="font-lato text-white/60 text-sm hover:text-white transition-colors">Início</a></li>
+            <li><a href="#servicos"    class="font-lato text-white/60 text-sm hover:text-white transition-colors">Serviços</a></li>
+            <li><a href="#sobre"       class="font-lato text-white/60 text-sm hover:text-white transition-colors">Sobre</a></li>
+            <li><a href="#localizacao" class="font-lato text-white/60 text-sm hover:text-white transition-colors">Localização</a></li>
+          </ul>
+        </div>
+
+        <!-- Social & Contact -->
+        <div>
+          <p class="font-playfair font-semibold text-white text-base mb-4">Contato & Redes</p>
+          <div class="flex flex-col gap-3">
+            <a href="https://wa.me/5585982048819" target="_blank" rel="noopener"
+               class="flex items-center gap-3 text-white/60 hover:text-white transition-colors group">
+              <i class="fa-brands fa-whatsapp text-lg group-hover:text-[#25D366] transition-colors"></i>
+              <span class="font-lato text-sm">(85) 9 8204-8819</span>
+            </a>
+            <a href="https://www.instagram.com/lusousa.ofc" target="_blank" rel="noopener"
+               class="flex items-center gap-3 text-white/60 hover:text-white transition-colors group">
+              <i class="fa-brands fa-instagram text-lg group-hover:text-pink-400 transition-colors"></i>
+              <span class="font-lato text-sm">@lusousa.ofc</span>
+            </a>
+            <div class="flex items-center gap-3 text-white/60">
+              <i class="fa-solid fa-location-dot text-lg"></i>
+              <span class="font-lato text-sm">Rua H, 42, Dendê — CE, 60714-715</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="font-lato text-white/40 text-xs text-center">
+          &copy; 2025 Lu Sousa Salão de Beleza. Todos os direitos reservados.
+        </p>
+        <div class="flex items-center gap-4">
+          <a href="https://wa.me/5585982048819" target="_blank" rel="noopener"
+             class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#25D366] transition-colors">
+            <i class="fa-brands fa-whatsapp text-white text-sm"></i>
+          </a>
+          <a href="https://www.instagram.com/lusousa.ofc" target="_blank" rel="noopener"
+             class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-pink-500 transition-colors">
+            <i class="fa-brands fa-instagram text-white text-sm"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ===================== WHATSAPP FLOAT ===================== -->
+  <a href="https://wa.me/5585982048819?text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20no%20salão%20Lu%20Sousa."
+     target="_blank" rel="noopener"
+     class="whatsapp-float w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-2xl hover:bg-[#1ebe5a] hover:scale-110 transition-all duration-300"
+     aria-label="Agendar pelo WhatsApp">
+    <i class="fa-brands fa-whatsapp text-white text-3xl"></i>
+  </a>
+
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+
+    menuToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+        mobileMenu.style.opacity = '1';
+        menuToggle.innerHTML = '<i class="fa-solid fa-xmark text-xl"></i>';
+      } else {
+        closeMenu();
+      }
+    });
+
+    function closeMenu() {
+      menuOpen = false;
+      mobileMenu.style.maxHeight = '0';
+      mobileMenu.style.opacity = '0';
+      menuToggle.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
+    }
+
+    // Navbar scroll effect
+    const navbar = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('shadow-md');
+      } else {
+        navbar.classList.remove('shadow-md');
+      }
+    });
+
+    // Smooth reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease';
+      observer.observe(card);
+    });
+  </script>
+
+</body>
+</html>
